@@ -1,0 +1,47 @@
+{
+  "name": "constant-contact-v3",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Constant Contact v3 API client",
+  "repository": "https://github.com/JoeyEamigh/constant-contact-v3.git",
+  "author": "Joey Eamigh <55670930+JoeyEamigh@users.noreply.github.com>",
+  "license": "MIT",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "unbuild",
+    "dev": "npx -y chokidar-cli src -c unbuild",
+    "lint": "eslint ./src",
+    "typecheck": "tsc --noEmit"
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./dist/*",
+        "./dist/index.d.ts"
+      ]
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "devDependencies": {
+    "@eslint/js": "^9.0.0",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "typescript": "^5.4.2",
+    "typescript-eslint": "^7.6.0",
+    "unbuild": "^2.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
