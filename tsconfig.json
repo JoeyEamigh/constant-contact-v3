@@ -11,7 +11,8 @@
     "declaration": true,
     "noImplicitAny": true,
     "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "skipLibCheck": true
   },
   "include": ["build.config.ts", "generate.ts", "src"],
   "exclude": ["node_modules"]
