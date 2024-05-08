@@ -5720,7 +5720,7 @@ export interface GetAccountByIdParams {
    * @format csv
    * @example "company_logo"
    */
-  extra_fields?: 'physical_address' | 'company_logo';
+  extra_fields?: string;
 }
 
 export type GetAccountByIdData = Customer;
@@ -5838,7 +5838,7 @@ export interface GetContactParams {
    * @format csv
    * @example "custom_fields,list_memberships"
    */
-  include?: 'custom_fields' | 'list_memberships' | 'phone_numbers' | 'street_addresses' | 'taggings' | 'notes';
+  include?: string;
   /**
    * Unique ID of contact to GET
    * @example "04fe9a-a579-43c5-bb1a-58ed29bf0a6a"
@@ -5857,7 +5857,7 @@ export interface GetContactsParams {
    * Use the `status` query parameter to search for contacts by status. This parameter accepts one or more comma separated values: `all`, `active`, `deleted`, `not_set`, `pending_confirmation`, `temp_hold`, and `unsubscribed`.
    * @format csv
    */
-  status?: 'all' | 'active' | 'deleted' | 'not_set' | 'pending_confirmation' | 'temp_hold' | 'unsubscribed';
+  status?: string;
   /**
    * Use the `email` query parameter to search for a contact using a specific email address.
    * @example "xyz@example.com"
@@ -5923,19 +5923,12 @@ export interface GetContactsParams {
    * @format csv
    * @example "custom_fields,list_memberships"
    */
-  include?:
-    | 'custom_fields'
-    | 'list_memberships'
-    | 'phone_numbers'
-    | 'street_addresses'
-    | 'taggings'
-    | 'notes'
-    | 'sms_channel';
+  include?: string;
   /**
    * Use to get contacts by their SMS status. This parameter accepts one or more comma separated values: `all`, `explicit`, `unsubscribed`, `pending_confirmation`, `not_set`.
    * @format csv
    */
-  sms_status?: 'all' | 'explicit' | 'unsubscribed' | 'pending_confirmation' | 'not_set';
+  sms_status?: string;
   /**
    * Set `include_count=true` to include the total number of contacts (`contacts_count`) that meet all search criteria in the response body.
    * @example "true"
@@ -6158,7 +6151,7 @@ export interface RetrieveEmailCampaignActivityUsingGetParams {
    * Use the `include` query parameter to enter a comma separated list of additional email campaign activity properties for the V3 API to return. Valid values are `physical_address_in_footer`, `permalink_url`, `html_content`, and `document_properties`.
    * @format csv
    */
-  include?: 'physical_address_in_footer' | 'permalink_url' | 'html_content' | 'document_properties';
+  include?: string;
   /**
    * The unique ID for an email campaign activity.
    * @example "91569d46-00e4-4a4d-9a4c-d17d98740d04"
