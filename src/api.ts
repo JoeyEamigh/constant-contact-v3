@@ -398,7 +398,10 @@ export class HttpClient {
       };
       return `${this.oAuthUrl}/authorize?${this.toQueryString(params)}`;
     },
-    exchangeAuthorizationCode: async (code: string, redirectUri: string) => {
+    exchangeAuthorizationCode: async (
+      code: string,
+      redirectUri: string,
+    ): Promise<HttpResponse<ConstantContactToken, ConstantContactApiError>> => {
       const res = await this.request<RawConstantContactToken & { id_token: string }>({
         baseUrl: this.oAuthUrl,
         path: '/token',
@@ -408,11 +411,13 @@ export class HttpClient {
         body: { code, redirect_uri: redirectUri, grant_type: 'authorization_code' },
         type: ContentType.UrlEncoded,
       });
-      if (res.ok) this.setToken(res.data);
+      if (!res.ok) return res;
 
-      return { ...res, data: this.token! };
+      this.setToken(res.data);
+      (res as unknown as HttpSuccessResponse<ConstantContactToken, ConstantContactApiError>).data = this.token!;
+      return res as unknown as HttpSuccessResponse<ConstantContactToken, ConstantContactApiError>;
     },
-    refreshToken: async () => {
+    refreshToken: async (): Promise<HttpResponse<ConstantContactToken, ConstantContactApiError>> => {
       const res = await this.request<RawConstantContactToken>({
         baseUrl: this.oAuthUrl,
         path: '/token',
@@ -422,9 +427,11 @@ export class HttpClient {
         body: { refresh_token: this.token?.refresh_token, grant_type: 'refresh_token' },
         type: ContentType.UrlEncoded,
       });
+      if (!res.ok) return res;
 
-      if (res.ok) this.setToken(res.data);
-      return { ...res, data: this.token! };
+      this.setToken(res.data);
+      (res as unknown as HttpSuccessResponse<ConstantContactToken, ConstantContactApiError>).data = this.token!;
+      return res as unknown as HttpSuccessResponse<ConstantContactToken, ConstantContactApiError>;
     },
   };
 

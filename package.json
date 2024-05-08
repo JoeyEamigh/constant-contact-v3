@@ -1,7 +1,7 @@
 {
   "name": "constant-contact-v3",
   "type": "module",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Constant Contact v3 API client",
   "repository": "https://github.com/JoeyEamigh/constant-contact-v3.git",
   "author": "Joey Eamigh <55670930+JoeyEamigh@users.noreply.github.com>",
