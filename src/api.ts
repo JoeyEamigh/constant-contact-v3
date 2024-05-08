@@ -235,6 +235,10 @@ export type HttpResponse<D extends unknown, E extends unknown = unknown> =
   | HttpSuccessResponse<D, E>
   | HttpErrorResponse<D, E>;
 
+export type ConstantContactApiError =
+  | { error_key: string; error_message: string }
+  | { error_key: string; error_message: string }[];
+
 type CancelToken = Symbol | string | number;
 
 export enum ContentType {
@@ -519,7 +523,7 @@ export class Api extends HttpClient {
      * @response `503` `void` Our internal service is temporarily unavailable.
      */
     getUserPrivileges: (params: RequestParams = {}) =>
-      this.request<GetUserPrivilegesData, void>({
+      this.request<GetUserPrivilegesData, ConstantContactApiError>({
         path: `/account/user/privileges`,
         method: 'GET',
         ...params,
@@ -541,7 +545,7 @@ export class Api extends HttpClient {
      * @response `503` `void` Our internal service is temporarily unavailable.
      */
     getAccountById: (query: GetAccountByIdParams, params: RequestParams = {}) =>
-      this.request<GetAccountByIdData, void>({
+      this.request<GetAccountByIdData, ConstantContactApiError>({
         path: `/account/summary`,
         method: 'GET',
         query: query,
@@ -564,7 +568,7 @@ export class Api extends HttpClient {
      * @response `503` `void` Our internal service is temporarily unavailable.
      */
     putCustomerById: (body: CustomerPut, params: RequestParams = {}) =>
-      this.request<PutCustomerByIdData, void>({
+      this.request<PutCustomerByIdData, ConstantContactApiError>({
         path: `/account/summary`,
         method: 'PUT',
         body: body,
@@ -589,7 +593,7 @@ export class Api extends HttpClient {
      * @response `503` `void` Our internal service is temporarily unavailable.
      */
     getPhysicalAddress: (params: RequestParams = {}) =>
-      this.request<GetPhysicalAddressData, void>({
+      this.request<GetPhysicalAddressData, ConstantContactApiError>({
         path: `/account/summary/physical_address`,
         method: 'GET',
         ...params,
@@ -612,7 +616,7 @@ export class Api extends HttpClient {
      * @response `503` `void` Our internal service is temporarily unavailable.
      */
     putPhysicalAddress: (body: AccountPhysicalAddress, params: RequestParams = {}) =>
-      this.request<PutPhysicalAddressData, void>({
+      this.request<PutPhysicalAddressData, ConstantContactApiError>({
         path: `/account/summary/physical_address`,
         method: 'PUT',
         body: body,
@@ -637,7 +641,7 @@ export class Api extends HttpClient {
      * @response `503` `void` Our internal service is temporarily unavailable.
      */
     retrieveEmailAddresses: (query: RetrieveEmailAddressesParams, params: RequestParams = {}) =>
-      this.request<RetrieveEmailAddressesData, void>({
+      this.request<RetrieveEmailAddressesData, ConstantContactApiError>({
         path: `/account/emails`,
         method: 'GET',
         query: query,
@@ -662,7 +666,7 @@ export class Api extends HttpClient {
      * @response `503` `void` Our internal service is temporarily unavailable.
      */
     addAccountEmailAddress: (body: AccountEmailInput, params: RequestParams = {}) =>
-      this.request<AddAccountEmailAddressData, void>({
+      this.request<AddAccountEmailAddressData, ConstantContactApiError>({
         path: `/account/emails`,
         method: 'POST',
         body: body,
@@ -688,7 +692,7 @@ export class Api extends HttpClient {
      * @response `503` `void` Our internal service is temporarily unavailable.
      */
     getActivityStatusCollection: (query: GetActivityStatusCollectionParams, params: RequestParams = {}) =>
-      this.request<GetActivityStatusCollectionData, void>({
+      this.request<GetActivityStatusCollectionData, ConstantContactApiError>({
         path: `/activities`,
         method: 'GET',
         query: query,
@@ -713,7 +717,7 @@ export class Api extends HttpClient {
      * @response `503` `void` Our internal service is temporarily unavailable.
      */
     getActivity: (activityId: string, params: RequestParams = {}) =>
-      this.request<GetActivityData, void>({
+      this.request<GetActivityData, ConstantContactApiError>({
         path: `/activities/${activityId}`,
         method: 'GET',
         type: ContentType.Json,
@@ -738,7 +742,7 @@ export class Api extends HttpClient {
      * @response `503` `void` Our internal service is temporarily unavailable.
      */
     postContactsExport: (body: ContactsExport, params: RequestParams = {}) =>
-      this.request<PostContactsExportData, void>({
+      this.request<PostContactsExportData, ConstantContactApiError>({
         path: `/activities/contact_exports`,
         method: 'POST',
         body: body,
@@ -763,7 +767,7 @@ export class Api extends HttpClient {
      * @response `503` `void` Our internal service is temporarily unavailable.
      */
     postContactDelete: (body: ContactDelete, params: RequestParams = {}) =>
-      this.request<PostContactDeleteData, void>({
+      this.request<PostContactDeleteData, ConstantContactApiError>({
         path: `/activities/contact_delete`,
         method: 'POST',
         body: body,
@@ -790,7 +794,7 @@ export class Api extends HttpClient {
      * @response `503` `void` Our internal service is temporarily unavailable.
      */
     contactsCsvImport: (data: ContactsCsvImportPayload, params: RequestParams = {}) =>
-      this.request<ContactsCsvImportData, void>({
+      this.request<ContactsCsvImportData, ConstantContactApiError>({
         path: `/activities/contacts_file_import`,
         method: 'POST',
         body: data,
@@ -815,7 +819,7 @@ export class Api extends HttpClient {
      * @response `503` `void` Our internal service is temporarily unavailable.
      */
     bulkImportContactsJson: (body: ContactsJsonImport, params: RequestParams = {}) =>
-      this.request<BulkImportContactsJsonData, void>({
+      this.request<BulkImportContactsJsonData, ConstantContactApiError>({
         path: `/activities/contacts_json_import`,
         method: 'POST',
         body: body,
@@ -841,7 +845,7 @@ export class Api extends HttpClient {
      * @response `503` `void` Our internal service is temporarily unavailable.
      */
     postListRemoveContact: (body: ListActivityRemoveContacts, params: RequestParams = {}) =>
-      this.request<PostListRemoveContactData, void>({
+      this.request<PostListRemoveContactData, ConstantContactApiError>({
         path: `/activities/remove_list_memberships`,
         method: 'POST',
         body: body,
@@ -866,7 +870,7 @@ export class Api extends HttpClient {
      * @response `503` `void` Our internal service is temporarily unavailable.
      */
     postListAddContact: (body: ListActivityAddContacts, params: RequestParams = {}) =>
-      this.request<PostListAddContactData, void>({
+      this.request<PostListAddContactData, ConstantContactApiError>({
         path: `/activities/add_list_memberships`,
         method: 'POST',
         body: body,
@@ -891,7 +895,7 @@ export class Api extends HttpClient {
      * @response `503` `void` Our internal service is temporarily unavailable.
      */
     postListDelete: (body: ListIdList100, params: RequestParams = {}) =>
-      this.request<PostListDeleteData, void>({
+      this.request<PostListDeleteData, ConstantContactApiError>({
         path: `/activities/list_delete`,
         method: 'POST',
         body: body,
@@ -917,7 +921,7 @@ export class Api extends HttpClient {
      * @response `503` `void` Our internal service is temporarily unavailable.
      */
     postTagRemoveContact: (body: TagAddRemoveContacts, params: RequestParams = {}) =>
-      this.request<PostTagRemoveContactData, void>({
+      this.request<PostTagRemoveContactData, ConstantContactApiError>({
         path: `/activities/contacts_taggings_remove`,
         method: 'POST',
         body: body,
@@ -943,7 +947,7 @@ export class Api extends HttpClient {
      * @response `503` `void` Our internal service is temporarily unavailable.
      */
     postTagAddContact: (body: TagAddRemoveContacts, params: RequestParams = {}) =>
-      this.request<PostTagAddContactData, void>({
+      this.request<PostTagAddContactData, ConstantContactApiError>({
         path: `/activities/contacts_taggings_add`,
         method: 'POST',
         body: body,
@@ -968,7 +972,7 @@ export class Api extends HttpClient {
      * @response `503` `void` Our internal service is temporarily unavailable.
      */
     postTagDelete: (body: TagIdList500Limit, params: RequestParams = {}) =>
-      this.request<PostTagDeleteData, void>({
+      this.request<PostTagDeleteData, ConstantContactApiError>({
         path: `/activities/contacts_tags_delete`,
         method: 'POST',
         body: body,
@@ -994,7 +998,7 @@ export class Api extends HttpClient {
      * @response `503` `void` Our internal service is temporarily unavailable.
      */
     postCustomFieldDelete: (body: CustomFieldId100, params: RequestParams = {}) =>
-      this.request<PostCustomFieldDeleteData, void>({
+      this.request<PostCustomFieldDeleteData, ConstantContactApiError>({
         path: `/activities/custom_fields_delete`,
         method: 'POST',
         body: body,
@@ -1021,7 +1025,7 @@ export class Api extends HttpClient {
      * @response `503` `void` Our internal service is temporarily unavailable.
      */
     getContactsExport: (fileExportId: string, params: RequestParams = {}) =>
-      this.request<GetContactsExportData, void>({
+      this.request<GetContactsExportData, ConstantContactApiError>({
         path: `/contact_exports/${fileExportId}`,
         method: 'GET',
         type: ContentType.Json,
@@ -1047,7 +1051,7 @@ export class Api extends HttpClient {
      * @response `500` `void` There was a problem with our internal service.
      */
     getAccountSegments: (query: GetAccountSegmentsParams, params: RequestParams = {}) =>
-      this.request<GetAccountSegmentsData, void>({
+      this.request<GetAccountSegmentsData, ConstantContactApiError>({
         path: `/segments`,
         method: 'GET',
         query: query,
@@ -1071,7 +1075,7 @@ export class Api extends HttpClient {
      * @response `500` `void` There was a problem with our internal service.
      */
     createSegment: (body: SegmentData, params: RequestParams = {}) =>
-      this.request<CreateSegmentData, void>({
+      this.request<CreateSegmentData, ConstantContactApiError>({
         path: `/segments`,
         method: 'POST',
         body: body,
@@ -1095,7 +1099,7 @@ export class Api extends HttpClient {
      * @response `500` `void` There was a problem with our internal service.
      */
     getSegmentDetail: (segmentId: number, params: RequestParams = {}) =>
-      this.request<GetSegmentDetailData, void>({
+      this.request<GetSegmentDetailData, ConstantContactApiError>({
         path: `/segments/${segmentId}`,
         method: 'GET',
         type: ContentType.Json,
@@ -1120,7 +1124,7 @@ export class Api extends HttpClient {
      * @response `500` `void` There was a problem with our internal service.
      */
     updateSegment: (segmentId: number, body: SegmentData, params: RequestParams = {}) =>
-      this.request<UpdateSegmentData, void>({
+      this.request<UpdateSegmentData, ConstantContactApiError>({
         path: `/segments/${segmentId}`,
         method: 'PUT',
         body: body,
@@ -1145,7 +1149,7 @@ export class Api extends HttpClient {
      * @response `500` `void` There was a problem with our internal service.
      */
     deleteSegment: (segmentId: number, params: RequestParams = {}) =>
-      this.request<DeleteSegmentData, void>({
+      this.request<DeleteSegmentData, ConstantContactApiError>({
         path: `/segments/${segmentId}`,
         method: 'DELETE',
         ...params,
@@ -1169,7 +1173,7 @@ export class Api extends HttpClient {
      * @response `500` `void` There was a problem with our internal service.
      */
     updateSegmentName: (segmentId: number, body: SegmentName, params: RequestParams = {}) =>
-      this.request<UpdateSegmentNameData, void>({
+      this.request<UpdateSegmentNameData, ConstantContactApiError>({
         path: `/segments/${segmentId}/name`,
         method: 'PATCH',
         body: body,
@@ -1195,7 +1199,7 @@ export class Api extends HttpClient {
      * @response `503` `void` Our internal service is temporarily unavailable.
      */
     getContact: ({ contactId, ...query }: GetContactParams, params: RequestParams = {}) =>
-      this.request<GetContactData, void>({
+      this.request<GetContactData, ConstantContactApiError>({
         path: `/contacts/${contactId}`,
         method: 'GET',
         query: query,
@@ -1220,7 +1224,7 @@ export class Api extends HttpClient {
      * @response `503` `void` Our internal service is temporarily unavailable.
      */
     putContact: (contactId: string, body: ContactPutRequest, params: RequestParams = {}) =>
-      this.request<PutContactData, void>({
+      this.request<PutContactData, ConstantContactApiError>({
         path: `/contacts/${contactId}`,
         method: 'PUT',
         body: body,
@@ -1246,7 +1250,7 @@ export class Api extends HttpClient {
      * @response `503` `void` Our internal service is temporarily unavailable.
      */
     deleteContact: (contactId: string, params: RequestParams = {}) =>
-      this.request<DeleteContactData, void>({
+      this.request<DeleteContactData, ConstantContactApiError>({
         path: `/contacts/${contactId}`,
         method: 'DELETE',
         type: ContentType.Json,
@@ -1271,7 +1275,7 @@ export class Api extends HttpClient {
      * @response `503` `void` Our internal service is temporarily unavailable.
      */
     getContacts: (query: GetContactsParams, params: RequestParams = {}) =>
-      this.request<GetContactsData, void>({
+      this.request<GetContactsData, ConstantContactApiError>({
         path: `/contacts`,
         method: 'GET',
         query: query,
@@ -1296,7 +1300,7 @@ export class Api extends HttpClient {
      * @response `503` `void` Our internal service is temporarily unavailable.
      */
     createContact: (body: ContactPostRequest, params: RequestParams = {}) =>
-      this.request<CreateContactData, void>({
+      this.request<CreateContactData, ConstantContactApiError>({
         path: `/contacts`,
         method: 'POST',
         body: body,
@@ -1323,7 +1327,7 @@ export class Api extends HttpClient {
      * @response `503` `void` Our internal service is temporarily unavailable.
      */
     createOrUpdateContact: (body: ContactCreateOrUpdateInput, params: RequestParams = {}) =>
-      this.request<CreateOrUpdateContactData, void>({
+      this.request<CreateOrUpdateContactData, ConstantContactApiError>({
         path: `/contacts/sign_up_form`,
         method: 'POST',
         body: body,
@@ -1348,7 +1352,7 @@ export class Api extends HttpClient {
      * @response `503` `void` Our internal service is temporarily unavailable.
      */
     getContactIdXrefs: (query: GetContactIdXrefsParams, params: RequestParams = {}) =>
-      this.request<GetContactIdXrefsData, void>({
+      this.request<GetContactIdXrefsData, ConstantContactApiError>({
         path: `/contacts/contact_id_xrefs`,
         method: 'GET',
         query: query,
@@ -1372,7 +1376,7 @@ export class Api extends HttpClient {
      * @response `503` `void` Our internal service is temporarily unavailable.
      */
     getSmsEngagementHistory: (contactId: string, params: RequestParams = {}) =>
-      this.request<GetSmsEngagementHistoryData, void>({
+      this.request<GetSmsEngagementHistoryData, ConstantContactApiError>({
         path: `/contacts/sms_engagement_history/${contactId}`,
         method: 'GET',
         type: ContentType.Json,
@@ -1396,7 +1400,7 @@ export class Api extends HttpClient {
      * @response `503` `void` Our internal service is temporarily unavailable.
      */
     countContact: (query: CountContactParams, params: RequestParams = {}) =>
-      this.request<CountContactData, void>({
+      this.request<CountContactData, ConstantContactApiError>({
         path: `/contacts/counts`,
         method: 'GET',
         query: query,
@@ -1422,7 +1426,7 @@ export class Api extends HttpClient {
      * @response `503` `void` Our internal service is temporarily unavailable.
      */
     getCustomField: (customFieldId: string, params: RequestParams = {}) =>
-      this.request<GetCustomFieldData, void>({
+      this.request<GetCustomFieldData, ConstantContactApiError>({
         path: `/contact_custom_fields/${customFieldId}`,
         method: 'GET',
         ...params,
@@ -1445,7 +1449,7 @@ export class Api extends HttpClient {
      * @response `503` `void` Our internal service is temporarily unavailable.
      */
     putCustomField: (customFieldId: string, body: CustomFieldInput, params: RequestParams = {}) =>
-      this.request<PutCustomFieldData, void>({
+      this.request<PutCustomFieldData, ConstantContactApiError>({
         path: `/contact_custom_fields/${customFieldId}`,
         method: 'PUT',
         body: body,
@@ -1470,7 +1474,7 @@ export class Api extends HttpClient {
      * @response `503` `void` Our internal service is temporarily unavailable.
      */
     deleteCustomField: (customFieldId: string, params: RequestParams = {}) =>
-      this.request<DeleteCustomFieldData, void>({
+      this.request<DeleteCustomFieldData, ConstantContactApiError>({
         path: `/contact_custom_fields/${customFieldId}`,
         method: 'DELETE',
         type: ContentType.Json,
@@ -1493,7 +1497,7 @@ export class Api extends HttpClient {
      * @response `503` `void` Our internal service is temporarily unavailable.
      */
     getCustomFields: (query: GetCustomFieldsParams, params: RequestParams = {}) =>
-      this.request<GetCustomFieldsData, void>({
+      this.request<GetCustomFieldsData, ConstantContactApiError>({
         path: `/contact_custom_fields`,
         method: 'GET',
         query: query,
@@ -1518,7 +1522,7 @@ export class Api extends HttpClient {
      * @response `503` `void` Our internal service is temporarily unavailable.
      */
     postCustomFields: (body: CustomFieldInput, params: RequestParams = {}) =>
-      this.request<PostCustomFieldsData, void>({
+      this.request<PostCustomFieldsData, ConstantContactApiError>({
         path: `/contact_custom_fields`,
         method: 'POST',
         body: body,
@@ -1543,7 +1547,7 @@ export class Api extends HttpClient {
      * @response `503` `void` Our internal service is temporarily unavailable.
      */
     getList: ({ listId, ...query }: GetListParams, params: RequestParams = {}) =>
-      this.request<GetListData, void>({
+      this.request<GetListData, ConstantContactApiError>({
         path: `/contact_lists/${listId}`,
         method: 'GET',
         query: query,
@@ -1567,7 +1571,7 @@ export class Api extends HttpClient {
      * @response `503` `void` Our internal service is temporarily unavailable.
      */
     putList: (listId: string, body: ListInput, params: RequestParams = {}) =>
-      this.request<PutListData, void>({
+      this.request<PutListData, ConstantContactApiError>({
         path: `/contact_lists/${listId}`,
         method: 'PUT',
         body: body,
@@ -1592,7 +1596,7 @@ export class Api extends HttpClient {
      * @response `503` `void` Our internal service is temporarily unavailable.
      */
     deleteListActivity: (listId: string, params: RequestParams = {}) =>
-      this.request<DeleteListActivityData, void>({
+      this.request<DeleteListActivityData, ConstantContactApiError>({
         path: `/contact_lists/${listId}`,
         method: 'DELETE',
         type: ContentType.Json,
@@ -1615,7 +1619,7 @@ export class Api extends HttpClient {
      * @response `503` `void` Our internal service is temporarily unavailable.
      */
     getLists: (query: GetListsParams, params: RequestParams = {}) =>
-      this.request<GetListsData, void>({
+      this.request<GetListsData, ConstantContactApiError>({
         path: `/contact_lists`,
         method: 'GET',
         query: query,
@@ -1639,7 +1643,7 @@ export class Api extends HttpClient {
      * @response `503` `void` Our internal service is temporarily unavailable.
      */
     createList: (body: ListInput, params: RequestParams = {}) =>
-      this.request<CreateListData, void>({
+      this.request<CreateListData, ConstantContactApiError>({
         path: `/contact_lists`,
         method: 'POST',
         body: body,
@@ -1664,7 +1668,7 @@ export class Api extends HttpClient {
      * @response `503` `void` Our internal service is temporarily unavailable.
      */
     getListIdXrefs: (query: GetListIdXrefsParams, params: RequestParams = {}) =>
-      this.request<GetListIdXrefsData, void>({
+      this.request<GetListIdXrefsData, ConstantContactApiError>({
         path: `/contact_lists/list_id_xrefs`,
         method: 'GET',
         query: query,
@@ -1688,7 +1692,7 @@ export class Api extends HttpClient {
      * @response `500` `void` There was a problem with our internal service.
      */
     getTag: ({ tagId, ...query }: GetTagParams, params: RequestParams = {}) =>
-      this.request<GetTagData, void>({
+      this.request<GetTagData, ConstantContactApiError>({
         path: `/contact_tags/${tagId}`,
         method: 'GET',
         query: query,
@@ -1713,7 +1717,7 @@ export class Api extends HttpClient {
      * @response `500` `void` There was a problem with our internal service.
      */
     putTag: (tagId: string, body: TagPut, params: RequestParams = {}) =>
-      this.request<PutTagData, void>({
+      this.request<PutTagData, ConstantContactApiError>({
         path: `/contact_tags/${tagId}`,
         method: 'PUT',
         body: body,
@@ -1738,7 +1742,7 @@ export class Api extends HttpClient {
      * @response `500` `void` There was a problem with our internal service.
      */
     deleteTag: (tagId: string, params: RequestParams = {}) =>
-      this.request<DeleteTagData, void>({
+      this.request<DeleteTagData, ConstantContactApiError>({
         path: `/contact_tags/${tagId}`,
         method: 'DELETE',
         type: ContentType.Json,
@@ -1761,7 +1765,7 @@ export class Api extends HttpClient {
      * @response `500` `void` There was a problem with our internal service.
      */
     getTags: (query: GetTagsParams, params: RequestParams = {}) =>
-      this.request<GetTagsData, void>({
+      this.request<GetTagsData, ConstantContactApiError>({
         path: `/contact_tags`,
         method: 'GET',
         query: query,
@@ -1786,7 +1790,7 @@ export class Api extends HttpClient {
      * @response `500` `void` There was a problem with our internal service.
      */
     postTag: (body: TagPost, params: RequestParams = {}) =>
-      this.request<PostTagData, void>({
+      this.request<PostTagData, ConstantContactApiError>({
         path: `/contact_tags`,
         method: 'POST',
         body: body,
@@ -1812,7 +1816,7 @@ export class Api extends HttpClient {
      * @response `500` `void` There was a problem with our internal service.
      */
     retrieveEmailCampaignsUsingGet: (query: RetrieveEmailCampaignsUsingGetParams, params: RequestParams = {}) =>
-      this.request<RetrieveEmailCampaignsUsingGetData, void>({
+      this.request<RetrieveEmailCampaignsUsingGetData, ConstantContactApiError>({
         path: `/emails`,
         method: 'GET',
         query: query,
@@ -1838,7 +1842,7 @@ export class Api extends HttpClient {
      * @response `500` `void` There was a problem with our internal service.
      */
     createEmailCampaignUsingPost: (body: EmailCampaignComplete, params: RequestParams = {}) =>
-      this.request<CreateEmailCampaignUsingPostData, void>({
+      this.request<CreateEmailCampaignUsingPostData, ConstantContactApiError>({
         path: `/emails`,
         method: 'POST',
         body: body,
@@ -1863,7 +1867,7 @@ export class Api extends HttpClient {
      * @response `500` `void` There was a problem with our internal service.
      */
     retrieveEmailCampaignUsingGet: (campaignId: string, params: RequestParams = {}) =>
-      this.request<RetrieveEmailCampaignUsingGetData, void>({
+      this.request<RetrieveEmailCampaignUsingGetData, ConstantContactApiError>({
         path: `/emails/${campaignId}`,
         method: 'GET',
         type: ContentType.Json,
@@ -1887,7 +1891,7 @@ export class Api extends HttpClient {
      * @response `500` `void` There was a problem with our internal service.
      */
     removeEmailCampaignUsingDelete: (campaignId: string, params: RequestParams = {}) =>
-      this.request<RemoveEmailCampaignUsingDeleteData, void>({
+      this.request<RemoveEmailCampaignUsingDeleteData, ConstantContactApiError>({
         path: `/emails/${campaignId}`,
         method: 'DELETE',
         ...params,
@@ -1912,7 +1916,7 @@ export class Api extends HttpClient {
      * @response `500` `void` There was a problem with our internal service.
      */
     renameEmailCampaignUsingPatch: (campaignId: string, body: EmailCampaignName, params: RequestParams = {}) =>
-      this.request<RenameEmailCampaignUsingPatchData, void>({
+      this.request<RenameEmailCampaignUsingPatchData, ConstantContactApiError>({
         path: `/emails/${campaignId}`,
         method: 'PATCH',
         body: body,
@@ -1937,7 +1941,7 @@ export class Api extends HttpClient {
      * @response `500` `void` There was a problem with our internal service.
      */
     retrieveXrefMappingsUsingGet: (query: RetrieveXrefMappingsUsingGetParams, params: RequestParams = {}) =>
-      this.request<RetrieveXrefMappingsUsingGetData, void>({
+      this.request<RetrieveXrefMappingsUsingGetData, ConstantContactApiError>({
         path: `/emails/campaign_id_xrefs`,
         method: 'GET',
         query: query,
@@ -1965,7 +1969,7 @@ export class Api extends HttpClient {
       { campaignActivityId, ...query }: RetrieveEmailCampaignActivityUsingGetParams,
       params: RequestParams = {},
     ) =>
-      this.request<RetrieveEmailCampaignActivityUsingGetData, void>({
+      this.request<RetrieveEmailCampaignActivityUsingGetData, ConstantContactApiError>({
         path: `/emails/activities/${campaignActivityId}`,
         method: 'GET',
         query: query,
@@ -1995,7 +1999,7 @@ export class Api extends HttpClient {
       body: EmailCampaignActivity,
       params: RequestParams = {},
     ) =>
-      this.request<UpdateEmailCampaignActivityUsingPutData, void>({
+      this.request<UpdateEmailCampaignActivityUsingPutData, ConstantContactApiError>({
         path: `/emails/activities/${campaignActivityId}`,
         method: 'PUT',
         body: body,
@@ -2020,7 +2024,7 @@ export class Api extends HttpClient {
      * @response `500` `void` There was a problem with our internal service.
      */
     retrieveEmailSchedulesUsingGet: (campaignActivityId: string, params: RequestParams = {}) =>
-      this.request<RetrieveEmailSchedulesUsingGetData, void>({
+      this.request<RetrieveEmailSchedulesUsingGetData, ConstantContactApiError>({
         path: `/emails/activities/${campaignActivityId}/schedules`,
         method: 'GET',
         ...params,
@@ -2047,7 +2051,7 @@ export class Api extends HttpClient {
       body: EmailScheduleInput,
       params: RequestParams = {},
     ) =>
-      this.request<ScheduleEmailCampaignActivityUsingPostData, void>({
+      this.request<ScheduleEmailCampaignActivityUsingPostData, ConstantContactApiError>({
         path: `/emails/activities/${campaignActivityId}/schedules`,
         method: 'POST',
         body: body,
@@ -2072,7 +2076,7 @@ export class Api extends HttpClient {
      * @response `500` `void` There was a problem with our internal service.
      */
     unscheduleEmailCampaignActivityUsingDelete: (campaignActivityId: string, params: RequestParams = {}) =>
-      this.request<UnscheduleEmailCampaignActivityUsingDeleteData, void>({
+      this.request<UnscheduleEmailCampaignActivityUsingDeleteData, ConstantContactApiError>({
         path: `/emails/activities/${campaignActivityId}/schedules`,
         method: 'DELETE',
         type: ContentType.Json,
@@ -2100,7 +2104,7 @@ export class Api extends HttpClient {
       email_test_send_input: EmailTestSendInput,
       params: RequestParams = {},
     ) =>
-      this.request<TestSendCampaignActivityUsingPostData, void>({
+      this.request<TestSendCampaignActivityUsingPostData, ConstantContactApiError>({
         path: `/emails/activities/${campaignActivityId}/tests`,
         method: 'POST',
         body: email_test_send_input,
@@ -2125,7 +2129,7 @@ export class Api extends HttpClient {
      * @response `500` `void` There was a problem with our internal service.
      */
     retrieveEmailCampaignActivityPreviewUsingGet: (campaignActivityId: string, params: RequestParams = {}) =>
-      this.request<RetrieveEmailCampaignActivityPreviewUsingGetData, void>({
+      this.request<RetrieveEmailCampaignActivityPreviewUsingGetData, ConstantContactApiError>({
         path: `/emails/activities/${campaignActivityId}/previews`,
         method: 'GET',
         ...params,
@@ -2148,7 +2152,7 @@ export class Api extends HttpClient {
      * @response `500` `void` There was a problem with our internal service.
      */
     retrieveEmailSendHistoryUsingGet: (campaignActivityId: string, params: RequestParams = {}) =>
-      this.request<RetrieveEmailSendHistoryUsingGetData, void>({
+      this.request<RetrieveEmailSendHistoryUsingGetData, ConstantContactApiError>({
         path: `/emails/activities/${campaignActivityId}/send_history`,
         method: 'GET',
         ...params,
@@ -2171,7 +2175,7 @@ export class Api extends HttpClient {
      * @response `500` `void` There was a problem with our internal service.
      */
     retrieveResendToNonOpenersUsingGet: (campaignActivityId: string, params: RequestParams = {}) =>
-      this.request<RetrieveResendToNonOpenersUsingGetData, void>({
+      this.request<RetrieveResendToNonOpenersUsingGetData, ConstantContactApiError>({
         path: `/emails/activities/${campaignActivityId}/non_opener_resends`,
         method: 'GET',
         type: ContentType.Json,
@@ -2200,7 +2204,7 @@ export class Api extends HttpClient {
       resend_schedule: ResendToNonOpenersInput,
       params: RequestParams = {},
     ) =>
-      this.request<CreateResendToNonOpenersUsingPostData, void>({
+      this.request<CreateResendToNonOpenersUsingPostData, ConstantContactApiError>({
         path: `/emails/activities/${campaignActivityId}/non_opener_resends`,
         method: 'POST',
         body: resend_schedule,
@@ -2230,7 +2234,7 @@ export class Api extends HttpClient {
       resendRequestId: string,
       params: RequestParams = {},
     ) =>
-      this.request<DeleteResendToNonOpenersUsingDeleteData, void>({
+      this.request<DeleteResendToNonOpenersUsingDeleteData, ConstantContactApiError>({
         path: `/emails/activities/${campaignActivityId}/non_opener_resends/${resendRequestId}`,
         method: 'DELETE',
         type: ContentType.Json,
@@ -2255,7 +2259,7 @@ export class Api extends HttpClient {
      * @response `500` `void` There was a problem with our internal service.
      */
     retrieveEmailCampaignAbTestUsingGet: (campaignActivityId: string, params: RequestParams = {}) =>
-      this.request<RetrieveEmailCampaignAbTestUsingGetData, void>({
+      this.request<RetrieveEmailCampaignAbTestUsingGetData, ConstantContactApiError>({
         path: `/emails/activities/${campaignActivityId}/abtest`,
         method: 'GET',
         type: ContentType.Json,
@@ -2280,7 +2284,7 @@ export class Api extends HttpClient {
      * @response `500` `void` There was a problem with our internal service.
      */
     createEmailCampaignAbTestUsingPost: (campaignActivityId: string, abtest: ABTestData, params: RequestParams = {}) =>
-      this.request<CreateEmailCampaignAbTestUsingPostData, void>({
+      this.request<CreateEmailCampaignAbTestUsingPostData, ConstantContactApiError>({
         path: `/emails/activities/${campaignActivityId}/abtest`,
         method: 'POST',
         body: abtest,
@@ -2306,7 +2310,7 @@ export class Api extends HttpClient {
      * @response `500` `void` There was a problem with our internal service.
      */
     deleteEmailCampaignAbTestUsingDelete: (campaignActivityId: string, params: RequestParams = {}) =>
-      this.request<DeleteEmailCampaignAbTestUsingDeleteData, void>({
+      this.request<DeleteEmailCampaignAbTestUsingDeleteData, ConstantContactApiError>({
         path: `/emails/activities/${campaignActivityId}/abtest`,
         method: 'DELETE',
         type: ContentType.Json,
@@ -2331,7 +2335,7 @@ export class Api extends HttpClient {
      * @response `500` `void` There was a problem with our internal service.
      */
     getContactTracking: ({ contactId, ...query }: GetContactTrackingParams, params: RequestParams = {}) =>
-      this.request<GetContactTrackingData, void>({
+      this.request<GetContactTrackingData, ConstantContactApiError>({
         path: `/reports/contact_reports/${contactId}/activity_details`,
         method: 'GET',
         query: query,
@@ -2356,7 +2360,7 @@ export class Api extends HttpClient {
      * @response `500` `void` There was a problem with our internal service.
      */
     getContactOpenClickRate: ({ contactId, ...query }: GetContactOpenClickRateParams, params: RequestParams = {}) =>
-      this.request<GetContactOpenClickRateData, void>({
+      this.request<GetContactOpenClickRateData, ConstantContactApiError>({
         path: `/reports/contact_reports/${contactId}/open_and_click_rates`,
         method: 'GET',
         query: query,
@@ -2381,7 +2385,7 @@ export class Api extends HttpClient {
      * @response `500` `void` There was a problem with our internal service.
      */
     getContactTrackingCount: ({ contactId, ...query }: GetContactTrackingCountParams, params: RequestParams = {}) =>
-      this.request<GetContactTrackingCountData, void>({
+      this.request<GetContactTrackingCountData, ConstantContactApiError>({
         path: `/reports/contact_reports/${contactId}/activity_summary`,
         method: 'GET',
         query: query,
@@ -2409,7 +2413,7 @@ export class Api extends HttpClient {
       { campaignActivityId, ...query }: GetCampaignActivityLinkStatsParams,
       params: RequestParams = {},
     ) =>
-      this.request<GetCampaignActivityLinkStatsData, void>({
+      this.request<GetCampaignActivityLinkStatsData, ConstantContactApiError>({
         path: `/reports/email_reports/${campaignActivityId}/links`,
         method: 'GET',
         query: query,
@@ -2434,7 +2438,7 @@ export class Api extends HttpClient {
      * @response `500` `void` There was a problem with our internal service.
      */
     getSends: ({ campaignActivityId, ...query }: GetSendsParams, params: RequestParams = {}) =>
-      this.request<GetSendsData, void>({
+      this.request<GetSendsData, ConstantContactApiError>({
         path: `/reports/email_reports/${campaignActivityId}/tracking/sends`,
         method: 'GET',
         query: query,
@@ -2459,7 +2463,7 @@ export class Api extends HttpClient {
      * @response `500` `void` There was a problem with our internal service.
      */
     getOpens: ({ campaignActivityId, ...query }: GetOpensParams, params: RequestParams = {}) =>
-      this.request<GetOpensData, void>({
+      this.request<GetOpensData, ConstantContactApiError>({
         path: `/reports/email_reports/${campaignActivityId}/tracking/opens`,
         method: 'GET',
         query: query,
@@ -2484,7 +2488,7 @@ export class Api extends HttpClient {
      * @response `500` `void` There was a problem with our internal service.
      */
     getUniqueOpens: ({ campaignActivityId, ...query }: GetUniqueOpensParams, params: RequestParams = {}) =>
-      this.request<GetUniqueOpensData, void>({
+      this.request<GetUniqueOpensData, ConstantContactApiError>({
         path: `/reports/email_reports/${campaignActivityId}/tracking/unique_opens`,
         method: 'GET',
         query: query,
@@ -2509,7 +2513,7 @@ export class Api extends HttpClient {
      * @response `500` `void` There was a problem with our internal service.
      */
     getDidNotOpens: ({ campaignActivityId, ...query }: GetDidNotOpensParams, params: RequestParams = {}) =>
-      this.request<GetDidNotOpensData, void>({
+      this.request<GetDidNotOpensData, ConstantContactApiError>({
         path: `/reports/email_reports/${campaignActivityId}/tracking/didnotopens`,
         method: 'GET',
         query: query,
@@ -2534,7 +2538,7 @@ export class Api extends HttpClient {
      * @response `500` `void` There was a problem with our internal service.
      */
     getClicks: ({ campaignActivityId, ...query }: GetClicksParams, params: RequestParams = {}) =>
-      this.request<GetClicksData, void>({
+      this.request<GetClicksData, ConstantContactApiError>({
         path: `/reports/email_reports/${campaignActivityId}/tracking/clicks`,
         method: 'GET',
         query: query,
@@ -2559,7 +2563,7 @@ export class Api extends HttpClient {
      * @response `500` `void` There was a problem with our internal service.
      */
     getForwards: ({ campaignActivityId, ...query }: GetForwardsParams, params: RequestParams = {}) =>
-      this.request<GetForwardsData, void>({
+      this.request<GetForwardsData, ConstantContactApiError>({
         path: `/reports/email_reports/${campaignActivityId}/tracking/forwards`,
         method: 'GET',
         query: query,
@@ -2584,7 +2588,7 @@ export class Api extends HttpClient {
      * @response `500` `void` There was a problem with our internal service.
      */
     getOptouts: ({ campaignActivityId, ...query }: GetOptoutsParams, params: RequestParams = {}) =>
-      this.request<GetOptoutsData, void>({
+      this.request<GetOptoutsData, ConstantContactApiError>({
         path: `/reports/email_reports/${campaignActivityId}/tracking/optouts`,
         method: 'GET',
         query: query,
@@ -2609,7 +2613,7 @@ export class Api extends HttpClient {
      * @response `500` `void` There was a problem with our internal service.
      */
     getBounces: ({ campaignActivityId, ...query }: GetBouncesParams, params: RequestParams = {}) =>
-      this.request<GetBouncesData, void>({
+      this.request<GetBouncesData, ConstantContactApiError>({
         path: `/reports/email_reports/${campaignActivityId}/tracking/bounces`,
         method: 'GET',
         query: query,
@@ -2633,7 +2637,7 @@ export class Api extends HttpClient {
      * @response `500` `void` There was a problem with our internal service.
      */
     getAllBulkEmailCampaignSummaries: (query: GetAllBulkEmailCampaignSummariesParams, params: RequestParams = {}) =>
-      this.request<GetAllBulkEmailCampaignSummariesData, void>({
+      this.request<GetAllBulkEmailCampaignSummariesData, ConstantContactApiError>({
         path: `/reports/summary_reports/email_campaign_summaries`,
         method: 'GET',
         query: query,
@@ -2657,7 +2661,7 @@ export class Api extends HttpClient {
      * @response `500` `void` There was a problem with our internal service.
      */
     getEmailSummary: (campaignIds: string, params: RequestParams = {}) =>
-      this.request<GetEmailSummaryData, void>({
+      this.request<GetEmailSummaryData, ConstantContactApiError>({
         path: `/reports/stats/email_campaigns/${campaignIds}`,
         method: 'GET',
         type: ContentType.Json,
@@ -2680,7 +2684,7 @@ export class Api extends HttpClient {
      * @response `500` `void` There was a problem with our internal service.
      */
     getEmailCampaignActivitySummary: (campaignActivityIds: string, params: RequestParams = {}) =>
-      this.request<GetEmailCampaignActivitySummaryData, void>({
+      this.request<GetEmailCampaignActivitySummaryData, ConstantContactApiError>({
         path: `/reports/stats/email_campaign_activities/${campaignActivityIds}`,
         method: 'GET',
         type: ContentType.Json,
@@ -2707,7 +2711,7 @@ export class Api extends HttpClient {
       { campaignActivityId, ...query }: GetUniqueContactClicksParams,
       params: RequestParams = {},
     ) =>
-      this.request<GetUniqueContactClicksData, void>({
+      this.request<GetUniqueContactClicksData, ConstantContactApiError>({
         path: `/reports/landing_pages/campaign_details/${campaignActivityId}/p_unique_contact_clicks`,
         method: 'GET',
         query: query,
@@ -2735,7 +2739,7 @@ export class Api extends HttpClient {
       { campaignActivityId, ...query }: GetUniqueContactOpensParams,
       params: RequestParams = {},
     ) =>
-      this.request<GetUniqueContactOpensData, void>({
+      this.request<GetUniqueContactOpensData, ConstantContactApiError>({
         path: `/reports/landing_pages/campaign_details/${campaignActivityId}/p_unique_contact_opens`,
         method: 'GET',
         query: query,
@@ -2760,7 +2764,7 @@ export class Api extends HttpClient {
      * @response `500` `void` There was a problem with our internal service.
      */
     getContactOpens: ({ campaignActivityId, ...query }: GetContactOpensParams, params: RequestParams = {}) =>
-      this.request<GetContactOpensData, void>({
+      this.request<GetContactOpensData, ConstantContactApiError>({
         path: `/reports/landing_pages/campaign_details/${campaignActivityId}/p_contact_opens`,
         method: 'GET',
         query: query,
@@ -2788,7 +2792,7 @@ export class Api extends HttpClient {
       { campaignActivityId, ...query }: GetUniqueContactUpdatesParams,
       params: RequestParams = {},
     ) =>
-      this.request<GetUniqueContactUpdatesData, void>({
+      this.request<GetUniqueContactUpdatesData, ConstantContactApiError>({
         path: `/reports/landing_pages/campaign_details/${campaignActivityId}/p_unique_contact_updates`,
         method: 'GET',
         query: query,
@@ -2813,7 +2817,7 @@ export class Api extends HttpClient {
      * @response `500` `void` There was a problem with our internal service.
      */
     getContactAdds: ({ campaignActivityId, ...query }: GetContactAddsParams, params: RequestParams = {}) =>
-      this.request<GetContactAddsData, void>({
+      this.request<GetContactAddsData, ConstantContactApiError>({
         path: `/reports/landing_pages/campaign_details/${campaignActivityId}/p_unique_contact_adds`,
         method: 'GET',
         query: query,
@@ -2841,7 +2845,7 @@ export class Api extends HttpClient {
       { campaignActivityId, ...query }: GetUniqueContactSmsOptInsParams,
       params: RequestParams = {},
     ) =>
-      this.request<GetUniqueContactSmsOptInsData, void>({
+      this.request<GetUniqueContactSmsOptInsData, ConstantContactApiError>({
         path: `/reports/landing_pages/campaign_details/${campaignActivityId}/p_unique_contact_sms_optins`,
         method: 'GET',
         query: query,
@@ -2866,7 +2870,7 @@ export class Api extends HttpClient {
      * @response `500` `void` There was a problem with our internal service.
      */
     getPartnerSiteOwners: (query: GetPartnerSiteOwnersParams, params: RequestParams = {}) =>
-      this.request<GetPartnerSiteOwnersData, void>({
+      this.request<GetPartnerSiteOwnersData, ConstantContactApiError>({
         path: `/partner/accounts`,
         method: 'GET',
         query: query,
@@ -2892,7 +2896,7 @@ export class Api extends HttpClient {
      * @response `503` `void` Our internal service is temporarily unavailable.
      */
     provision: (provision: Provision, params: RequestParams = {}) =>
-      this.request<ProvisionData, void>({
+      this.request<ProvisionData, ConstantContactApiError>({
         path: `/partner/accounts`,
         method: 'POST',
         body: provision,
@@ -2918,7 +2922,7 @@ export class Api extends HttpClient {
      * @response `500` `void` There was a problem with our internal service.
      */
     getPlan: (encodedAccountId: string, params: RequestParams = {}) =>
-      this.request<GetPlanData, void>({
+      this.request<GetPlanData, ConstantContactApiError>({
         path: `/partner/accounts/${encodedAccountId}/plan`,
         method: 'GET',
         type: ContentType.Json,
@@ -2943,7 +2947,7 @@ export class Api extends HttpClient {
      * @response `500` `void` There was a problem with our internal service.
      */
     setPlan: (encodedAccountId: string, body: PlanInfo, params: RequestParams = {}) =>
-      this.request<SetPlanData, void>({
+      this.request<SetPlanData, ConstantContactApiError>({
         path: `/partner/accounts/${encodedAccountId}/plan`,
         method: 'PUT',
         body: body,
@@ -2967,7 +2971,7 @@ export class Api extends HttpClient {
      * @response `500` `void` There was a problem with our internal service.
      */
     cancelAccount: (encodedAccountId: string, body: AccountCancellation, params: RequestParams = {}) =>
-      this.request<CancelAccountData, void>({
+      this.request<CancelAccountData, ConstantContactApiError>({
         path: `/partner/accounts/${encodedAccountId}/status/cancel`,
         method: 'PUT',
         body: body,
@@ -2995,7 +2999,7 @@ export class Api extends HttpClient {
       body: PartnerAccountOperationsRequest,
       params: RequestParams = {},
     ) =>
-      this.request<PartnerAccountOperationsPostSyncData, void>({
+      this.request<PartnerAccountOperationsPostSyncData, ConstantContactApiError>({
         path: `/partner/accounts/${encodedAccountId}/account_operations/sync`,
         method: 'POST',
         body: body,
@@ -3019,7 +3023,7 @@ export class Api extends HttpClient {
      * @response `500` `void` There was a problem with our internal service.
      */
     createSsoUser: (encodedAccountId: string, user: SSOUser, params: RequestParams = {}) =>
-      this.request<CreateSsoUserData, void>({
+      this.request<CreateSsoUserData, ConstantContactApiError>({
         path: `/partner/accounts/${encodedAccountId}/users/sso`,
         method: 'POST',
         body: user,
@@ -3043,7 +3047,7 @@ export class Api extends HttpClient {
      * @response `500` `void` There was a problem with our internal service.
      */
     getWebhooksCollection: (params: RequestParams = {}) =>
-      this.request<GetWebhooksCollectionData, void>({
+      this.request<GetWebhooksCollectionData, ConstantContactApiError>({
         path: `/partner/webhooks/subscriptions`,
         method: 'GET',
         type: ContentType.Json,
@@ -3066,7 +3070,7 @@ export class Api extends HttpClient {
      * @response `500` `void` There was a problem with our internal service.
      */
     getWebhooksTopic: (topicId: string, params: RequestParams = {}) =>
-      this.request<GetWebhooksTopicData, void>({
+      this.request<GetWebhooksTopicData, ConstantContactApiError>({
         path: `/partner/webhooks/subscriptions/${topicId}`,
         method: 'GET',
         type: ContentType.Json,
@@ -3089,7 +3093,7 @@ export class Api extends HttpClient {
      * @response `500` `void` There was a problem with our internal service.
      */
     putWebhooksTopic: (topicId: string, body: WebhooksSubscriptionBody, params: RequestParams = {}) =>
-      this.request<PutWebhooksTopicData, void>({
+      this.request<PutWebhooksTopicData, ConstantContactApiError>({
         path: `/partner/webhooks/subscriptions/${topicId}`,
         method: 'PUT',
         body: body,
@@ -3113,7 +3117,7 @@ export class Api extends HttpClient {
      * @response `500` `void` There was a problem with our internal service.
      */
     deleteWebhooksSubscriptions: (topicId: string, params: RequestParams = {}) =>
-      this.request<DeleteWebhooksSubscriptionsData, void>({
+      this.request<DeleteWebhooksSubscriptionsData, ConstantContactApiError>({
         path: `/partner/webhooks/subscriptions/${topicId}`,
         method: 'DELETE',
         type: ContentType.Json,
@@ -3136,7 +3140,7 @@ export class Api extends HttpClient {
      * @response `500` `void` There was a problem with our internal service.
      */
     testSendWebhooksTopic: (topicId: string, params: RequestParams = {}) =>
-      this.request<TestSendWebhooksTopicData, void>({
+      this.request<TestSendWebhooksTopicData, ConstantContactApiError>({
         path: `/partner/webhooks/subscriptions/${topicId}/tests`,
         method: 'POST',
         type: ContentType.Json,
